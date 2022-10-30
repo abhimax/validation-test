@@ -5,34 +5,46 @@ const SimpleInput = (props) => {
   const [nameIsValid, setNameIsValid] = useState(true);
   const [enteredNameIsTouched, setEnteredNameTouched] = useState(false);
   const nameRef = useRef();
-  const handleOnChangeName = (event) => {
+  const enteredNameOnChangeHandler = (event) => {
+    if (name.trim() !== "") {
+      setNameIsValid(true);
+    }
     setName(event.target.value);
   };
-  const handleOnSubmit = (event) => {
+  const onSubmitHandler = (event) => {
     event.preventDefault();
     setEnteredNameTouched(true);
     if (name.trim() === "") {
       setNameIsValid(false);
-      return;
     }
     setNameIsValid(true);
     console.log("STATE ", name);
     console.log("REF ", nameRef.current.value);
   };
 
+  const enteredNameBlurHandler = event => {
+    setEnteredNameTouched(true);
+    if (name.trim() === "") {
+      setNameIsValid(false);
+      return;
+    }
+    setNameIsValid(true);
+  }
+
   const enteredNameIsInvalid = !nameIsValid && enteredNameIsTouched;
   const nameInputFormClass = enteredNameIsInvalid
     ? "form-control invalid"
     : "form-control";
   return (
-    <form onSubmit={handleOnSubmit}>
+    <form onSubmit={onSubmitHandler}>
       <div className={nameInputFormClass}>
         <label htmlFor="name">Your Name</label>
         <input
           type="text"
           id="name"
           ref={nameRef}
-          onChange={handleOnChangeName}
+          onChange={enteredNameOnChangeHandler}
+          onBlur={enteredNameBlurHandler}
         />
       </div>
       {enteredNameIsInvalid && (
