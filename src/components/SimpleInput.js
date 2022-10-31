@@ -1,10 +1,9 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 const SimpleInput = (props) => {
   const [name, setName] = useState("");
   const [nameIsValid, setNameIsValid] = useState(true);
   const [enteredNameIsTouched, setEnteredNameTouched] = useState(false);
-  const nameRef = useRef();
   const enteredNameOnChangeHandler = (event) => {
     if (name.trim() !== "") {
       setNameIsValid(true);
@@ -19,7 +18,6 @@ const SimpleInput = (props) => {
     }
     setNameIsValid(true);
     console.log("STATE ", name);
-    console.log("REF ", nameRef.current.value);
   };
 
   const enteredNameBlurHandler = event => {
@@ -42,7 +40,6 @@ const SimpleInput = (props) => {
         <input
           type="text"
           id="name"
-          ref={nameRef}
           onChange={enteredNameOnChangeHandler}
           onBlur={enteredNameBlurHandler}
         />
