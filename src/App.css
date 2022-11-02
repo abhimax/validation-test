@@ -23,6 +23,13 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+button:disabled,
+button:disabled:hover,
+button:disabled:active{
+  background-color: grey;
+  cursor: not-allowed;
+  border-color: gray;
+}
 
 .App-link {
   color: #61dafb;
